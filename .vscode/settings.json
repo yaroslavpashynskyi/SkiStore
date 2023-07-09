@@ -4,9 +4,12 @@
     "editor.formatOnSave": true,
     "editor.defaultFormatter": null,
     "[csharp]": {
-        "editor.defaultFormatter": "csharpier.csharpier-vscode",
+        "editor.defaultFormatter": "csharpier.csharpier-vscode"
     },
-    "[typescript][typescriptreact]": {
+    "[typescript]": {
+        "editor.defaultFormatter": "vscode.typescript-language-features"
+    },
+    "[typescriptreact]": {
         "editor.defaultFormatter": "vscode.typescript-language-features"
     }
 }
