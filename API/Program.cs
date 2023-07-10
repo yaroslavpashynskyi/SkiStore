@@ -12,6 +12,8 @@ builder.Services.AddDbContext<StoreContext>(opt =>
 });
 builder.Services.AddControllers();
 
+builder.Services.AddCors();
+
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
@@ -24,6 +26,7 @@ if (app.Environment.IsDevelopment())
     app.UseSwagger();
     app.UseSwaggerUI();
 }
+app.UseCors(opt => opt.AllowAnyMethod().AllowAnyHeader().WithOrigins("http://localhost:3000"));
 
 app.UseAuthorization();
 
