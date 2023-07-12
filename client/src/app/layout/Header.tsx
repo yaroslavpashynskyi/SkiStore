@@ -1,4 +1,5 @@
-import { AppBar, Switch, Toolbar, Typography } from "@mui/material";
+import { AppBar, Toolbar, Typography } from "@mui/material";
+import CustomSwitch from "./CustomSwitch";
 interface Props {
   darkMode: boolean,
   handleThemeChange: () => void
@@ -10,7 +11,7 @@ export default function Header({ darkMode, handleThemeChange }: Props) {
         <Typography variant="h6" >
           Ski-Store
         </Typography>
-        <Switch checked={darkMode} onChange={handleThemeChange} />
+        <CustomSwitch darkMode={darkMode} handleThemeChange={handleThemeChange} />
       </Toolbar>
     </AppBar>
   )
