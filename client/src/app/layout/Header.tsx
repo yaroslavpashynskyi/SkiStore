@@ -1,18 +1,81 @@
-import { AppBar, Toolbar, Typography } from "@mui/material";
+import { AppBar, Badge, Box, Button, IconButton, List, ListItem, Stack, Toolbar, Typography } from "@mui/material";
 import CustomSwitch from "./CustomSwitch";
+
+import { NavLink } from "react-router-dom";
+import { ShoppingCart } from "@mui/icons-material";
+
+const midLinks = [
+  { title: "catalog", path: "/catalog" },
+  { title: "about", path: "/about" },
+  { title: "contact", path: "/contact" },
+]
+
+const rightLinks = [
+  { title: "login", path: "/login" },
+  { title: "register", path: "/register" },
+]
+
 interface Props {
   darkMode: boolean,
   handleThemeChange: () => void
 }
+
+const navStyles = {
+  textDecoration: "none",
+  color: "inherit",
+  typography: "h6",
+  "&:hover": {
+    color: "grey.500"
+  },
+  "&.active": {
+    color: "text.secondary"
+  }
+}
 export default function Header({ darkMode, handleThemeChange }: Props) {
   return (
     <AppBar position="static" sx={{ mb: 4 }}>
-      <Toolbar>
-        <Typography variant="h6" >
-          Ski-Store
-        </Typography>
-        <CustomSwitch darkMode={darkMode} handleThemeChange={handleThemeChange} />
-      </Toolbar>
-    </AppBar>
+      <Toolbar sx={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
+        <Box display={"flex"} alignItems={"center"}>
+          <Typography variant="h6" component={NavLink}
+            to={"/"}
+            sx={navStyles}>
+            SKI-STORE
+          </Typography>
+          <CustomSwitch darkMode={darkMode} handleThemeChange={handleThemeChange} />
+        </Box>
+        <Stack direction="row" spacing={4}>
+          {midLinks.map(({ title, path }) => (
+            <Button
+              key={path}
+              component={NavLink}
+              to={path}
+              sx={navStyles}
+            >
+              {title.toUpperCase()}
+            </Button>
+          ))}
+        </Stack>
+        <Box display={"flex"} alignItems={"center"}>
+          <IconButton size="large" edge="start" color="inherit" sx={{ mr: 2 }}>
+            <Badge badgeContent="4" color="secondary">
+              <ShoppingCart />
+            </Badge>
+          </IconButton>
+          <List sx={{ display: "flex" }}>
+            {rightLinks.map(({ title, path }) => (
+              <ListItem key={path} disablePadding>
+                <Button
+                  component={NavLink}
+                  to={path}
+                  sx={navStyles}
+                >
+                  {title.toUpperCase()}
+                </Button>
+              </ListItem>
+            ))}
+          </List>
+        </Box>
+      </Toolbar >
+    </AppBar >
   )
 }
