@@ -1,4 +1,5 @@
 using API.Data;
+using API.MiddleWare;
 
 using Microsoft.EntityFrameworkCore;
 
@@ -21,6 +22,8 @@ builder.Services.AddSwaggerGen();
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
+app.UseMiddleware<ExceptionMiddleWare>();
+
 if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
