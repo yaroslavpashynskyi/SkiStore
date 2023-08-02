@@ -1,5 +1,5 @@
 import { Avatar, Card, CardActionArea, CardActions, CardContent, CardHeader, CardMedia, Typography } from "@mui/material"
-import { Product } from "../../app/models/Product"
+import { Product } from "../../app/models/product"
 import { Link } from "react-router-dom"
 import { useState } from "react"
 import agent from "../../app/api/agent"
