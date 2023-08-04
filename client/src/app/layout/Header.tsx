@@ -1,7 +1,7 @@
 import { AppBar, Badge, Box, Button, IconButton, List, ListItem, Stack, Toolbar, Typography } from "@mui/material";
 import CustomSwitch from "./CustomSwitch";
 
-import { NavLink } from "react-router-dom";
+import { Link, NavLink } from "react-router-dom";
 import { ShoppingCart } from "@mui/icons-material";
 
 const midLinks = [
@@ -56,7 +56,14 @@ export default function Header({ darkMode, handleThemeChange }: Props) {
           ))}
         </Stack>
         <Box display={"flex"} alignItems={"center"}>
-          <IconButton size="large" edge="start" color="inherit" sx={{ mr: 2 }}>
+          <IconButton
+            component={Link}
+            to="basket"
+            size="large"
+            edge="start"
+            color="inherit"
+            sx={{ mr: 2 }}
+          >
             <Badge badgeContent="4" color="secondary">
               <ShoppingCart />
             </Badge>
