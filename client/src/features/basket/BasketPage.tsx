@@ -7,9 +7,12 @@ import agent from "../../app/api/agent";
 import BasketSummary from "./BasketSummary";
 import { currencyFormat } from "../../app/util/util";
 import { Link } from "react-router-dom";
+import { useAppDispatch, useAppSelector } from "../../app/store/configureStore";
+import { removeItem, setBasket } from "./basketSlice";
 
 export default function BasketPage() {
-  const { basket, setBasket, removeItem } = useStoreContext();
+  const { basket } = useAppSelector(state => state.basket);
+  const dispatch = useAppDispatch()
   const [status, setStatus] = useState({
     loading: false,
     name: ""
@@ -18,7 +21,7 @@ export default function BasketPage() {
   function handleAddItem(productId: number, name: string) {
     setStatus({ loading: true, name });
     agent.Basket.addItem(productId, 1)
-      .then(basket => setBasket(basket))
+      .then(basket => dispatch(setBasket(basket)))
       .catch(error => console.log(error))
       .finally(() => setStatus({ loading: false, name: "" }));
   }
@@ -26,7 +29,7 @@ export default function BasketPage() {
   function handleRemoveItem(productId: number, name: string, quantity = 1) {
     setStatus({ loading: true, name });
     agent.Basket.removeItem(productId, quantity)
-      .then(() => removeItem(productId, quantity))
+      .then(() => dispatch(removeItem({ productId, quantity })))
       .catch(error => console.log(error))
       .finally(() => setStatus({ loading: false, name: "" }));
   }
