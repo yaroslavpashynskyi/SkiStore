@@ -6,16 +6,15 @@ import agent from "../../app/api/agent";
 import LoadingComponent from "../../app/layout/LoadingComponent";
 import { LoadingButton } from "@mui/lab";
 import { useAppSelector, useAppDispatch } from "../../app/store/configureStore";
-import { setBasket, removeItem } from "../basket/basketSlice";
+import { addBasketItemAsync, removeBasketItemAsync } from "../basket/basketSlice";
 
 export default function ProductDetails() {
-  const { basket } = useAppSelector(state => state.basket);
+  const { basket, status } = useAppSelector(state => state.basket);
   const dispatch = useAppDispatch()
   const { id } = useParams<{ id: string }>();
   const [product, setProduct] = useState<Product | null>(null);
   const [loading, setLoading] = useState(true);
   const [quantity, setQuantity] = useState(0);
-  const [submitting, setSubmitting] = useState(false);
   const item = basket?.items.find(item => item.productId === product?.id);
 
   function handleInputChange(event: any) {
@@ -25,6 +24,11 @@ export default function ProductDetails() {
     }
     else if (parseInt(value) >= 0) {
       setQuantity(parseInt(value))
+    }
+  }
+  function handleKeypress(event: any) {
+    if (event.keyCode === 13) {
+      handleUpdateCart();
     }
   }
   useEffect(() => {
@@ -37,24 +41,18 @@ export default function ProductDetails() {
 
   function handleUpdateCart() {
 
-    setSubmitting(true);
     if (!item || quantity > item.quantity) {
       const updatedQuantity = item ? quantity - item.quantity : quantity;
-      agent.Basket.addItem(product?.id!, updatedQuantity)
-        .then(basket => dispatch(setBasket(basket)))
-        .catch(error => console.log(error))
-        .finally(() => setSubmitting(false));
+      dispatch(addBasketItemAsync({ productId: product?.id!, quantity: updatedQuantity }));
     } else {
       const updatedQuantity = item.quantity - quantity;
-      agent.Basket.removeItem(product?.id!, updatedQuantity)
-        .then(() => dispatch(removeItem({ productId: product?.id!, quantity: updatedQuantity })))
-        .catch(error => console.log(error))
-        .finally(() => setSubmitting(false));
+      dispatch(removeBasketItemAsync({ productId: product?.id!, quantity: updatedQuantity }));
     }
   }
   if (loading) return <LoadingComponent message="Loading product..." />
 
   if (!product) return <h3>Product not found</h3>
+
   return (
     <Grid container spacing={6} >
       <Grid item xs={6}>
@@ -95,6 +93,7 @@ export default function ProductDetails() {
         <Grid container spacing={2} marginTop={5} >
           <Grid item xs={6}>
             <TextField
+              onKeyUp={handleKeypress}
               onChange={handleInputChange}
               variant="outlined"
               label="Quantity in Cart"
@@ -105,8 +104,9 @@ export default function ProductDetails() {
           </Grid>
           <Grid item xs={6}>
             <LoadingButton
+              type="submit"
               disabled={quantity === item?.quantity || (!item && quantity === 0)}
-              loading={submitting}
+              loading={status.includes("pending")}
               onClick={handleUpdateCart}
               variant="contained"
               color="primary"

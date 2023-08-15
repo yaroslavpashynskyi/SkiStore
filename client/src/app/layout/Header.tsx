@@ -3,7 +3,6 @@ import CustomSwitch from "./CustomSwitch";
 
 import { Link, NavLink } from "react-router-dom";
 import { ShoppingCart } from "@mui/icons-material";
-import { useStoreContext } from "../context/StoreContext";
 import { useAppSelector } from "../store/configureStore";
 
 const midLinks = [
