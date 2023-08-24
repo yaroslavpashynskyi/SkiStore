@@ -12,5 +12,6 @@
     "[typescriptreact]": {
         "editor.defaultFormatter": "vscode.typescript-language-features",
         "editor.tabSize": 2
-    }
+    },
+    "dotnet.defaultSolution": "SkiStore.sln"
 }
