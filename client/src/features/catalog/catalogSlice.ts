@@ -21,9 +21,9 @@ function getAxiosParams(productParams: ProductParams) {
     params.append("pageNumber", productParams.pageNumber.toString());
     params.append("pageSize", productParams.pageSize.toString());
     params.append("orderBy", productParams.orderBy.toString());
-    if (productParams.searchTerm) params.append("searchTerm", productParams.searchTerm.toString());
-    if (productParams.brands) params.append("brands", productParams.brands.toString());
-    if (productParams.types) params.append("types", productParams.types.toString());
+    if (productParams.searchTerm?.length) params.append("searchTerm", productParams.searchTerm.toString());
+    if (productParams.brands?.length) params.append("brands", productParams.brands.toString());
+    if (productParams.types?.length) params.append("types", productParams.types.toString());
 
     return params;
 }
@@ -85,7 +85,11 @@ export const catalogSlice = createSlice({
     reducers: {
         setProductParams: (state, action) => {
             state.productsLoaded = false;
-            state.productParams = { ...state.productParams, ...action.payload }
+            if (action.payload.hasOwnProperty("pageNumber")
+                || action.payload.hasOwnProperty("orderBy"))
+                state.productParams = { ...state.productParams, ...action.payload }
+            else
+                state.productParams = { ...state.productParams, ...action.payload, pageNumber: 1 }
         },
         setMetaData: (state, action) => {
             state.metaData = action.payload;
