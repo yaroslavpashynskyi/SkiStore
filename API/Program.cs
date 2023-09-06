@@ -15,7 +15,10 @@ builder.Services.AddDbContext<StoreContext>(opt =>
 });
 builder.Services.AddControllers();
 builder.Services
-    .AddIdentityCore<User>()
+    .AddIdentityCore<User>(opt =>
+    {
+        opt.User.RequireUniqueEmail = true;
+    })
     .AddRoles<IdentityRole>()
     .AddEntityFrameworkStores<StoreContext>();
 
