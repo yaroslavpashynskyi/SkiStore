@@ -4,6 +4,7 @@ import CustomSwitch from "./CustomSwitch";
 import { Link, NavLink } from "react-router-dom";
 import { ShoppingCart } from "@mui/icons-material";
 import { useAppSelector } from "../store/configureStore";
+import SignedInMenu from "./SignedInMenu";
 
 const midLinks = [
   { title: "catalog", path: "/catalog" },
@@ -34,6 +35,7 @@ const navStyles = {
 }
 export default function Header({ darkMode, handleThemeChange }: Props) {
   const { basket } = useAppSelector(state => state.basket);
+  const { user } = useAppSelector(state => state.account);
   const itemCount = basket?.items.reduce((sum, item) => sum + item.quantity, 0)
 
   return (
@@ -72,19 +74,20 @@ export default function Header({ darkMode, handleThemeChange }: Props) {
               <ShoppingCart />
             </Badge>
           </IconButton>
-          <List sx={{ display: "flex" }}>
-            {rightLinks.map(({ title, path }) => (
-              <ListItem key={path} disablePadding>
-                <Button
-                  component={NavLink}
-                  to={path}
-                  sx={navStyles}
-                >
-                  {title.toUpperCase()}
-                </Button>
-              </ListItem>
-            ))}
-          </List>
+          {user ? <SignedInMenu />
+            : <List sx={{ display: "flex" }}>
+              {rightLinks.map(({ title, path }) => (
+                <ListItem key={path} disablePadding>
+                  <Button
+                    component={NavLink}
+                    to={path}
+                    sx={navStyles}
+                  >
+                    {title.toUpperCase()}
+                  </Button>
+                </ListItem>
+              ))}
+            </List>}
         </Box>
       </Toolbar >
     </AppBar >
