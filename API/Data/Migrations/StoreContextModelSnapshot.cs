@@ -7,7 +7,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
 
-namespace API.Data.Migraitons
+namespace API.Data.Migrations
 {
     [DbContext(typeof(StoreContext))]
     partial class StoreContextModelSnapshot : ModelSnapshot
@@ -392,7 +392,7 @@ namespace API.Data.Migraitons
 
             modelBuilder.Entity("API.Entities.OrderAggregate.Order", b =>
                 {
-                    b.OwnsOne("API.Entities.OrderAggregate.ShippingsAdress", "ShippingsAdress", b1 =>
+                    b.OwnsOne("API.Entities.OrderAggregate.ShippingAddress", "ShippingAddress", b1 =>
                         {
                             b1.Property<int>("OrderId")
                                 .HasColumnType("INTEGER");
@@ -426,7 +426,7 @@ namespace API.Data.Migraitons
                                 .HasForeignKey("OrderId");
                         });
 
-                    b.Navigation("ShippingsAdress")
+                    b.Navigation("ShippingAddress")
                         .IsRequired();
                 });
 

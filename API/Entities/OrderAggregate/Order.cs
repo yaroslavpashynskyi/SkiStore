@@ -8,7 +8,7 @@ namespace API.Entities.OrderAggregate
         public string BuyerId { get; set; }
 
         [Required]
-        public ShippingsAdress ShippingsAdress { get; set; }
+        public ShippingAddress ShippingAddress { get; set; }
         public DateTime OrderDate { get; set; } = DateTime.Now;
         public List<OrderItem> OrderItems { get; set; }
         public long Subtotal { get; set; }
