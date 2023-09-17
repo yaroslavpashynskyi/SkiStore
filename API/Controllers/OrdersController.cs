@@ -72,7 +72,7 @@ namespace API.Controllers
             var order = new Order
             {
                 BuyerId = User.Identity.Name,
-                ShippingAddress = orderDto.Address,
+                ShippingAddress = orderDto.ShippingAddress,
                 OrderItems = items,
                 Subtotal = subtotal,
                 DeliveryFee = deliveryFee
@@ -88,13 +88,13 @@ namespace API.Controllers
                 );
                 user.Address = new UserAddress
                 {
-                    FullName = orderDto.Address.FullName,
-                    Address1 = orderDto.Address.Address1,
-                    Address2 = orderDto.Address.Address2,
-                    City = orderDto.Address.City,
-                    State = orderDto.Address.State,
-                    Zip = orderDto.Address.Zip,
-                    Country = orderDto.Address.Country
+                    FullName = orderDto.ShippingAddress.FullName,
+                    Address1 = orderDto.ShippingAddress.Address1,
+                    Address2 = orderDto.ShippingAddress.Address2,
+                    City = orderDto.ShippingAddress.City,
+                    State = orderDto.ShippingAddress.State,
+                    Zip = orderDto.ShippingAddress.Zip,
+                    Country = orderDto.ShippingAddress.Country
                 };
             }
             var result = await _context.SaveChangesAsync() > 0;
