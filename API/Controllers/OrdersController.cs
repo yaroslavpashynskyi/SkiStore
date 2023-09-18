@@ -83,9 +83,9 @@ namespace API.Controllers
 
             if (orderDto.SaveAddress)
             {
-                var user = await _context.Users.FirstOrDefaultAsync(
-                    u => u.UserName == User.Identity.Name
-                );
+                var user = await _context.Users
+                    .Include(u => u.Address)
+                    .FirstOrDefaultAsync(u => u.UserName == User.Identity.Name);
                 user.Address = new UserAddress
                 {
                     FullName = orderDto.ShippingAddress.FullName,
