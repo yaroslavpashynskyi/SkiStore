@@ -4,7 +4,6 @@ import AppTextInput from "../../app/components/AppTextInput";
 import { CardCvcElement, CardExpiryElement, CardNumberElement } from "@stripe/react-stripe-js";
 import { StripeInput } from "./StripeInput";
 import { StripeElementType } from "@stripe/stripe-js";
-import { useState } from "react";
 
 interface Props {
   cardState: { elementError: { [key in StripeElementType]?: string } };
