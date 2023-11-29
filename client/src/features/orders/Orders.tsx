@@ -16,7 +16,7 @@ export default function Orders() {
       .then(orders => setOrders(orders))
       .catch(error => console.log(error))
       .finally(() => setLoading(false))
-  })
+  }, [])
 
 
   if (loading) return <LoadingComponent message="Loading orders..." />
