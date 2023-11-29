@@ -8,12 +8,12 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace API.Controllers
 {
-    public class PaymentController : BaseApiController
+    public class PaymentsController : BaseApiController
     {
         private readonly PaymentService _paymentService;
         private readonly StoreContext _context;
 
-        public PaymentController(PaymentService paymentService, StoreContext context)
+        public PaymentsController(PaymentService paymentService, StoreContext context)
         {
             _context = context;
             _paymentService = paymentService;
