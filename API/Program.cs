@@ -88,6 +88,8 @@ if (app.Environment.IsDevelopment())
         c.ConfigObject.AdditionalItems.Add("persistAuthorization", "true");
     });
 }
+
+app.UseStaticFiles();
 app.UseCors(
     opt =>
         opt.AllowAnyMethod()
@@ -100,6 +102,7 @@ app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapControllers();
+app.MapFallbackToController("Index", "Fallback");
 
 var scope = app.Services.CreateScope();
 var context = scope.ServiceProvider.GetRequiredService<StoreContext>();

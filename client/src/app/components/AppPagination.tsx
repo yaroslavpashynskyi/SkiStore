@@ -20,7 +20,7 @@ export default function AppPagination({ metaData, onPageChange }: Props) {
         size="large"
         count={totalPages}
         page={currentPage}
-        onChange={(event, page) => {
+        onChange={(_event, page) => {
           onPageChange(page);
         }}
       />
