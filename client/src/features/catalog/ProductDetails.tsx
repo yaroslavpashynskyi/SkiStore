@@ -37,13 +37,13 @@ export default function ProductDetails() {
   }, [dispatch, id, item, product])
 
   function handleUpdateCart() {
-
+    if (!product) return;
     if (!item || quantity > item.quantity) {
       const updatedQuantity = item ? quantity - item.quantity : quantity;
-      dispatch(addBasketItemAsync({ productId: product?.id!, quantity: updatedQuantity }));
+      dispatch(addBasketItemAsync({ productId: product.id, quantity: updatedQuantity }));
     } else {
       const updatedQuantity = item.quantity - quantity;
-      dispatch(removeBasketItemAsync({ productId: product?.id!, quantity: updatedQuantity }));
+      dispatch(removeBasketItemAsync({ productId: product.id, quantity: updatedQuantity }));
     }
   }
   if (productStatus.includes("pending")) return <LoadingComponent message="Loading product..." />

@@ -85,8 +85,8 @@ export const catalogSlice = createSlice({
     reducers: {
         setProductParams: (state, action) => {
             state.productsLoaded = false;
-            if (action.payload.hasOwnProperty("pageNumber")
-                || action.payload.hasOwnProperty("orderBy"))
+            if (Object.prototype.hasOwnProperty.call(action.payload, "pageNumber")
+                || Object.prototype.hasOwnProperty.call(action.payload, "orderBy"))
                 state.productParams = { ...state.productParams, ...action.payload }
             else
                 state.productParams = { ...state.productParams, ...action.payload, pageNumber: 1 }
