@@ -22,8 +22,12 @@ export default function Login() {
   });
 
   async function submitForm(data: FieldValues) {
-    await dispatch(signInUser(data));
-    navigate(location.state?.from || "/catalog");
+    try {
+      await dispatch(signInUser(data));
+      navigate(location.state?.from || '/catalog');
+    } catch (error: any) {
+      console.log(error);
+    }
   }
 
   return (
