@@ -3,6 +3,7 @@ using System.Text;
 using API.Data;
 using API.Entities;
 using API.MiddleWare;
+using API.RequestHelpers;
 using API.Services;
 
 using Microsoft.AspNetCore.Authentication.JwtBearer;
@@ -44,6 +45,7 @@ builder.Services.AddDbContext<StoreContext>(opt =>
 });
 
 builder.Services.AddControllers();
+builder.Services.AddAutoMapper(typeof(MappingProfiles).Assembly);
 builder.Services
     .AddIdentityCore<User>(opt =>
     {
