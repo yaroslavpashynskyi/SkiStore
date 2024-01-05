@@ -60,7 +60,7 @@ export default function Header({ darkMode, handleThemeChange }: Props) {
               {title.toUpperCase()}
             </Button>
           ))}
-          {user &&
+          {user && user.roles?.includes("Admin") &&
             <Button
               component={NavLink}
               to={'/inventory'}
