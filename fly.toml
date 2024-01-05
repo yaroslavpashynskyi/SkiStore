@@ -12,7 +12,8 @@ primary_region = "otp"
 [env]
   ASPNETCORE_URLS="http://+:8080"
   StripeSettings__PublishableKey="pk_test_51NtvDHJOQdR9i9fC85kKE2ypCDCWNtRyE2AsSZtlkwLZRi5zCfvRorYYw5xT2hzGStaXxInleFp2eBzuQnUDg7sm009J4SU2OZ"
-
+  Cloudinary__CloudName="dkdj9dlzi"
+  Cloudinary__ApiKey="982921129837442"
 
 [http_service]
   internal_port = 8080
@@ -25,4 +26,4 @@ primary_region = "otp"
 [[vm]]
   cpu_kind = "shared"
   cpus = 1
-  memory_mb = 1024
+  memory_mb = 256
