@@ -60,6 +60,14 @@ export default function Header({ darkMode, handleThemeChange }: Props) {
               {title.toUpperCase()}
             </Button>
           ))}
+          {user && user.roles?.includes("Admin") &&
+            <Button
+              component={NavLink}
+              to={'/inventory'}
+              sx={navStyles}
+            >
+              INVENTORY
+            </Button>}
         </Stack>
         <Box display={"flex"} alignItems={"center"}>
           <IconButton
